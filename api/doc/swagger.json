@@ -1,0 +1,2039 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "VK Filmoteka API Service",
+    "description": "VK Filmoteka API Service Documentation",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": " local server"
+    }
+  ],
+  "paths": {
+    "/api/v1/auth/login": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Successful login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestInvalidBodyResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WrongCredentialsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Login",
+        "description": " Login user to get JWT token",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/v1/auth/signup": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Successful sign-up",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignUpResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestInvalidBodyResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Username is taken error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConflictUsernameResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Sign-up",
+        "description": " Sign-up user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignUpRequest"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/v1/filmoteka/movie/{id}": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful get movie",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetMovieByIDResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestInvalidIDResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieNotFoundResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Movies"
+        ],
+        "summary": "Get Movie By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Movie ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Movie ID"
+            }
+          }
+        ]
+      },
+      "patch": {
+        "responses": {
+          "200": {
+            "description": "Successful update movie",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateMovieResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestInvalidBodyResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieNotFoundResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Movies"
+        ],
+        "summary": "Update Movie",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Movie ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Movie ID"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMovieRequest"
+              }
+            }
+          },
+          "required": true
+        }
+      },
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Successful delete movie",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteMovieResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestInvalidIDResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieNotFoundResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Movies"
+        ],
+        "summary": "Delete Movie",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Movie ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Movie ID"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/filmoteka/movies": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful get movies",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetMoviesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Movies"
+        ],
+        "summary": "Get Movies Paginated",
+        "description": " Get movies list paginated (with sorting and search term)",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Search term",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "description": "Search term"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort result",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "description": "Sort result"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Page number"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Items per page"
+            }
+          }
+        ]
+      },
+      "post": {
+        "responses": {
+          "201": {
+            "description": "Successful create movie",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateMovieResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestInvalidBodyResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Movies"
+        ],
+        "summary": "Create Movie",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMovieRequest"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/v1/filmoteka/star/{id}": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful get star",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetStarByIDResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestInvalidIDResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StarNotFoundResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Stars"
+        ],
+        "summary": "Get Star By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Star ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Star ID"
+            }
+          }
+        ]
+      },
+      "patch": {
+        "responses": {
+          "200": {
+            "description": "Successful update star",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateStarResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestInvalidBodyResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StarNotFoundResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Stars"
+        ],
+        "summary": "Update Star",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Star ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Star ID"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStarRequest"
+              }
+            }
+          },
+          "required": true
+        }
+      },
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Successful delete star",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteStarResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestInvalidIDResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StarNotFoundResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Stars"
+        ],
+        "summary": "Delete Star",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Star ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Star ID"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/filmoteka/stars": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful get stars",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetStarsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Stars"
+        ],
+        "summary": "Get Stars Paginated",
+        "description": " Get stars list paginated",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Page number"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Items per page"
+            }
+          }
+        ]
+      },
+      "post": {
+        "responses": {
+          "201": {
+            "description": "Successful create star",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateStarResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestInvalidBodyResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Stars"
+        ],
+        "summary": "Create Star",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateStarRequest"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BadRequestInvalidBodyResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "invalid_body"
+          }
+        }
+      },
+      "BadRequestInvalidIDResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "invalid_id"
+          }
+        }
+      },
+      "CodesEnum": {
+        "type": "string",
+        "enum": [
+          "login_success",
+          "user_created",
+          "jwt_recieved",
+          "username_is_taken",
+          "wrong_credentials",
+          "invalid_jwt",
+          "invalid_id",
+          "invalid_request_body",
+          "invalid_header",
+          "invalid_query_params",
+          "id_is_required",
+          "request_body_is_required",
+          "header_is_required",
+          "auth_header_is_required",
+          "star_received",
+          "stars_received",
+          "star_created",
+          "star_updated",
+          "star_deleted",
+          "star_not_found",
+          "movie_received",
+          "movies_received",
+          "movie_created",
+          "movie_updated",
+          "movie_deleted",
+          "movie_not_found",
+          "general_unauthorized",
+          "general_access_denied",
+          "general_internal",
+          "general_bad_request_error",
+          "general_unsupported_method",
+          "general_forbidden"
+        ]
+      },
+      "ConflictUsernameResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "username_is_taken"
+          }
+        }
+      },
+      "CreateMovieRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Title"
+          },
+          "description": {
+            "type": "string",
+            "example": "Description"
+          },
+          "release_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-06-06T00:00:00Z"
+          },
+          "rating": {
+            "type": "integer",
+            "example": 9
+          }
+        }
+      },
+      "CreateMovieResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "OK"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "movie_created"
+          },
+          "data": {
+            "type": "object",
+            "example": {
+              "created_at": "2024-03-15T21:16:36Z",
+              "deleted_at": null,
+              "description": "Night Call",
+              "id": 1,
+              "rating": 8,
+              "release_date": "2012-26-01T00:00:00Z",
+              "title": "Drive",
+              "updated_at": "2024-03-15T22:16:03Z"
+            }
+          }
+        }
+      },
+      "CreateStarRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Ryan Gosling"
+          },
+          "sex": {
+            "type": "string",
+            "example": "male"
+          },
+          "birth_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "1980-11-12T00:00:00Z"
+          }
+        }
+      },
+      "CreateStarResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "OK"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "star_created"
+          },
+          "data": {
+            "type": "object",
+            "example": {
+              "movies": [],
+              "star": {
+                "birth_date": "1980-11-12T00:00:00Z",
+                "created_at": "2024-03-16T10:40:05Z",
+                "deleted_at": null,
+                "id": 1,
+                "name": "Ryan Gosling",
+                "sex": "male",
+                "updated_at": "2024-03-16T10:40:05Z"
+              }
+            }
+          }
+        }
+      },
+      "DeleteMovieResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "OK"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "movie_deleted"
+          }
+        }
+      },
+      "DeleteStarResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "OK"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "star_deleted"
+          }
+        }
+      },
+      "ForbiddenResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "general_forbidden"
+          }
+        }
+      },
+      "GetMovieByIDResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "OK"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "movie_received"
+          },
+          "data": {
+            "type": "object",
+            "example": {
+              "created_at": "2024-03-15T21:16:36Z",
+              "deleted_at": null,
+              "description": "Night Call",
+              "id": 1,
+              "rating": 8,
+              "release_date": "2012-26-01T00:00:00Z",
+              "title": "Drive",
+              "updated_at": "2024-03-15T22:16:03Z"
+            }
+          }
+        }
+      },
+      "GetMoviesResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "OK"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "movies_received"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "release_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "rating": {
+                  "type": "integer"
+                },
+                "created_at": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "updated_at": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "deleted_at": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
+            "example": [
+              {
+                "created_at": "2024-03-15T21:16:36Z",
+                "deleted_at": null,
+                "description": "Night Call",
+                "id": 1,
+                "rating": 8,
+                "release_date": "2012-01-26T00:00:00Z",
+                "title": "Drive",
+                "updated_at": "2024-03-15T22:16:03Z"
+              },
+              {
+                "created_at": "2024-03-15T20:04:29Z",
+                "deleted_at": null,
+                "description": "Boom",
+                "id": 2,
+                "rating": 9,
+                "release_date": "2023-07-20T00:00:00Z",
+                "title": "Oppenheimer",
+                "updated_at": "2024-03-15T20:04:29Z"
+              }
+            ]
+          },
+          "_meta": {
+            "type": "object",
+            "example": {
+              "current_page": 1,
+              "page_count": 1,
+              "per_page": 20,
+              "total_count": 2
+            }
+          }
+        }
+      },
+      "GetStarByIDResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "OK"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "star_received"
+          },
+          "data": {
+            "type": "object",
+            "example": {
+              "movies": [
+                {
+                  "created_at": "2024-03-16T10:41:18Z",
+                  "deleted_at": null,
+                  "description": "I Drive",
+                  "id": 1,
+                  "rating": 9,
+                  "release_date": "2012-01-26T00:00:00Z",
+                  "title": "Drive",
+                  "updated_at": "2024-03-16T10:41:18Z"
+                },
+                {
+                  "created_at": "2024-03-16T10:42:20Z",
+                  "deleted_at": null,
+                  "description": "I Dance",
+                  "id": 2,
+                  "rating": 8,
+                  "release_date": "2017-01-12T00:00:00Z",
+                  "title": "La La Land",
+                  "updated_at": "2024-03-16T10:42:20Z"
+                }
+              ],
+              "star": {
+                "birth_date": "1980-11-12T00:00:00Z",
+                "created_at": "2024-03-16T10:40:05Z",
+                "deleted_at": null,
+                "id": 1,
+                "name": "Ryan Gosling",
+                "sex": "male",
+                "updated_at": "2024-03-16T10:40:05Z"
+              }
+            }
+          }
+        }
+      },
+      "GetStarsResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "OK"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "stars_received"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "sex": {
+                  "type": "string"
+                },
+                "birth_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "created_at": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "updated_at": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "deleted_at": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
+            "example": [
+              {
+                "birth_date": "1980-11-12T00:00:00Z",
+                "created_at": "2024-03-15T21:16:36Z",
+                "deleted_at": null,
+                "id": 1,
+                "name": "Ryan Gosling",
+                "sex": "male",
+                "updated_at": "2024-03-15T22:16:03Z"
+              },
+              {
+                "birth_date": "1996-09-01T00:00:00Z",
+                "created_at": "2024-03-15T20:04:29Z",
+                "deleted_at": null,
+                "id": 2,
+                "name": "Zendaya",
+                "sex": "female",
+                "updated_at": "2024-03-15T20:04:29Z"
+              }
+            ]
+          },
+          "_meta": {
+            "type": "object",
+            "example": {
+              "current_page": 1,
+              "page_count": 1,
+              "per_page": 20,
+              "total_count": 2
+            }
+          }
+        }
+      },
+      "InternalResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "general_internal"
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "testuser"
+          },
+          "password": {
+            "type": "string",
+            "example": "tesTpa$$w0rd"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "OK"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "admin_panel_login_success"
+          },
+          "data": {
+            "type": "object",
+            "example": {
+              "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTA1NDE4OTUsImlhdCI6MTcxMDU0MDk5NSwianRpIjoiMzE4MTJkNjQtMGZkYy00ZmU2LWE4NGUtYmRlZDBjMjVhMGFhIiwidXNlciI6InRlc3R1c2VyIiwicm9sZSI6InVzZXIiLCJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIn0._mTQ8tY52PAVOT21w72HCnUl6epEautV_v6eDh0FTlI"
+            }
+          }
+        }
+      },
+      "Movie": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "release_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "rating": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "MovieNotFoundResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "movie_not_found"
+          }
+        }
+      },
+      "PaginationBody": {
+        "type": "object",
+        "properties": {
+          "total_count": {
+            "type": "integer"
+          },
+          "page_count": {
+            "type": "integer"
+          },
+          "current_page": {
+            "type": "integer"
+          },
+          "per_page": {
+            "type": "integer"
+          }
+        }
+      },
+      "SignUpRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "testuser"
+          },
+          "password": {
+            "type": "string",
+            "example": "tesTpa$$w0rd"
+          },
+          "role": {
+            "type": "string",
+            "example": "admin"
+          }
+        }
+      },
+      "SignUpResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "OK"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "admin_panel_refresh_success"
+          },
+          "data": {
+            "type": "object",
+            "example": {
+              "created_at": "2024-01-01T00:00:00Z",
+              "id": 1,
+              "role": "user",
+              "updated_at": "2024-01-01T00:00:00Z",
+              "username": "testuser"
+            }
+          }
+        }
+      },
+      "Star": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "sex": {
+            "type": "string"
+          },
+          "birth_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "StarNotFoundResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "star_not_found"
+          }
+        }
+      },
+      "StarWithMovies": {
+        "type": "object",
+        "properties": {
+          "star": {
+            "type": "object",
+            "$ref": "#/components/schemas/Star"
+          },
+          "movies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Movie"
+            }
+          }
+        }
+      },
+      "Token": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string"
+          }
+        }
+      },
+      "UnauthorizedResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "general_unauthorized"
+          }
+        }
+      },
+      "UpdateMovieRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "New Title"
+          },
+          "description": {
+            "type": "string",
+            "example": "New Description"
+          },
+          "release_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-10-10T00:00:00Z"
+          },
+          "rating": {
+            "type": "integer",
+            "example": 8
+          }
+        }
+      },
+      "UpdateMovieResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "OK"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "movie_updated"
+          },
+          "data": {
+            "type": "object",
+            "example": {
+              "created_at": "2024-03-15T21:16:36Z",
+              "deleted_at": null,
+              "description": "Night Call 2",
+              "id": 1,
+              "rating": 10,
+              "release_date": "2022-02-01T00:00:00Z",
+              "title": "Drive 2",
+              "updated_at": "2024-03-16T14:16:03Z"
+            }
+          }
+        }
+      },
+      "UpdateStarRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Raisa Goslingova"
+          },
+          "sex": {
+            "type": "string",
+            "example": "female"
+          },
+          "birth_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "1981-02-21T00:00:00Z"
+          }
+        }
+      },
+      "UpdateStarResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "OK"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "star_updated"
+          },
+          "data": {
+            "type": "object",
+            "example": {
+              "movies": [
+                {
+                  "created_at": "2024-03-16T10:41:18Z",
+                  "deleted_at": null,
+                  "description": "I Drive",
+                  "id": 1,
+                  "rating": 9,
+                  "release_date": "2012-01-26T00:00:00Z",
+                  "title": "Drive",
+                  "updated_at": "2024-03-16T10:41:18Z"
+                },
+                {
+                  "created_at": "2024-03-16T10:42:20Z",
+                  "deleted_at": null,
+                  "description": "I Dance",
+                  "id": 2,
+                  "rating": 8,
+                  "release_date": "2017-01-12T00:00:00Z",
+                  "title": "La La Land",
+                  "updated_at": "2024-03-16T10:42:20Z"
+                }
+              ],
+              "star": {
+                "birth_date": "1981-02-21T00:00:00Z",
+                "created_at": "2024-03-16T10:40:05Z",
+                "deleted_at": null,
+                "id": 1,
+                "name": "Raisa Goslingova",
+                "sex": "female",
+                "updated_at": "2024-03-16T10:40:05Z"
+              }
+            }
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "username": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ValidationError": {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string"
+          },
+          "field": {
+            "type": "string"
+          },
+          "param": {
+            "type": "string"
+          }
+        }
+      },
+      "ValidationErrors": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "tag": {
+                  "type": "string"
+                },
+                "field": {
+                  "type": "string"
+                },
+                "param": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ValidationResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "go_validation"
+          },
+          "data": {
+            "type": "object",
+            "example": {
+              "errors": [
+                {
+                  "field": "\u003cfield\u003e",
+                  "param": "\u003cparam\u003e",
+                  "tag": "\u003ctag\u003e"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "WrongCredentialsResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "wrong_credentials"
+          }
+        }
+      },
+      "model.BadRequestInvalidBodyResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "invalid_body"
+          }
+        }
+      },
+      "model.BadRequestInvalidIDResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "invalid_id"
+          }
+        }
+      },
+      "model.ForbiddenResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "general_forbidden"
+          }
+        }
+      },
+      "model.InternalResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "general_internal"
+          }
+        }
+      },
+      "model.MovieNotFoundResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "movie_not_found"
+          }
+        }
+      },
+      "model.StarNotFoundResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "star_not_found"
+          }
+        }
+      },
+      "model.UnauthorizedResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "general_unauthorized"
+          }
+        }
+      },
+      "model.ValidationResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR"
+          },
+          "msg_code": {
+            "type": "string",
+            "example": "go_validation"
+          },
+          "data": {
+            "type": "object",
+            "example": {
+              "errors": [
+                {
+                  "field": "\u003cfield\u003e",
+                  "param": "\u003cparam\u003e",
+                  "tag": "\u003ctag\u003e"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "web.PaginationBody": {
+        "type": "object",
+        "properties": {
+          "total_count": {
+            "type": "integer"
+          },
+          "page_count": {
+            "type": "integer"
+          },
+          "current_page": {
+            "type": "integer"
+          },
+          "per_page": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "AuthorizationHeader": {
+        "type": "http",
+        "description": "JWT-token",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "AuthorizationHeader": [
+        "bearer",
+        "token"
+      ]
+    }
+  ]
+}

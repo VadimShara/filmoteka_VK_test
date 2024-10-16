@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:latest
+    volumes:
+      - db_data:/var/lib/postgres/data
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+      PGDATA: /var/lib/postgres/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "${DB_USER}", "-d", "${DB_NAME}", "-t", "1" ] 
+      interval: 1s
+      timeout: 2s
+      retries: 5
+
+  migrator:
+    build: ../migrations
+    command:
+      - migrate
+      - --conn-string
+      - postgres://${DB_USER}:${DB_PASS}@db:5432/${DB_NAME}
+      - --migrations
+      - /migrations
+    depends_on:
+      db:
+        condition: service_healthy
+
+  server:
+    build: ../
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      SERVER_HOST: ${SERVER_HOST}
+      FILMOTEKA_DB_HOST: ${DB_HOST}
+      FILMOTEKA_DB_USER: ${DB_USER}
+      FILMOTEKA_DB_PASSWORD: ${DB_PASS}
+      FILMOTEKA_DB_NAME: ${DB_NAME}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ACCESS_TOKEN_EXPIRATION: ${JWT_ACCESS_TOKEN_EXPIRATION}
+    depends_on:
+      - migrator
+
+volumes:
+  db_data:
